@@ -19,14 +19,14 @@ const greenLight = new THREE.PointLight(0x00ff00, 1);
 greenLight.position.set(4, -4, 4);
 scene.add(greenLight);
 const geometry = new THREE.CylinderGeometry(2.1,2.1,0.12,64)
-const edgeMaterial = new THREE.MeshPhysicalMaterial({ color: 0xd8b4fe, // Leggera tinta violacea
+const edgeMaterial = new THREE.MeshPhysicalMaterial({ color: 0xd8b4fe, 
     transparent: true,
     opacity: 0.75,
     roughness: 0.1,
     metalness: 0.2});
 
 const material = new THREE.MeshPhysicalMaterial({ color: 0xffffff, metalness: 0.8, roughness: 0.2 });
-const cdTexture = new THREE.TextureLoader().load("cover1.png");
+const cdTexture = new THREE.TextureLoader().load("CD-ROM.png");
 const faceMaterial = new THREE.MeshPhysicalMaterial({ map: cdTexture, metalness: 0.3, roughness: 0.2, transparent: true, iridescence:1.0, iridescenceIOR: 1.3, iridescenceThicknessRange: [100, 400] });
 const cd = new THREE.Mesh(geometry, [material, faceMaterial, faceMaterial, edgeMaterial]);
 cd.rotation.x = Math.PI / 2 - 0.25;
@@ -282,4 +282,9 @@ audio.addEventListener("pause", () => {
     if ("mediaSession" in navigator) {
         navigator.mediaSession.playbackState = "paused";
     }
+});
+audio.addEventListener("ended", () => {
+    currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+    loadTrack(currentTrackIndex);
+    audio.play();
 });
