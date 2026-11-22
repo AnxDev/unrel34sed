@@ -1,3 +1,6 @@
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./sw.js");
+}
 let cd_wrapper = document.getElementById("cd_wrapper");
 let cd_cover = document.getElementById("cd-cover");
 
