@@ -105,7 +105,7 @@ let tracks = [
     {
         title: "purp!e haze",
         artist: "tha Supreme",
-        src: "tracks/piledicash.mp3",
+        src: "tracks/purplehaze.mp3",
         cover: "cover3.png",
         duration: 62,
     },
@@ -162,6 +162,8 @@ function loadTrack(index) {
 
     audio.currentTime = 0;
 }
+const playIcon = `<svg class="w-7 h-7 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`;
+const pauseIcon = `<svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
 cd_wrapper.addEventListener("click", () => {
     if (!isPlayerOpen) {
         panel_expander.classList.remove("grid-rows-[0fr]");
@@ -173,15 +175,15 @@ cd_wrapper.addEventListener("click", () => {
         cd_wrapper.classList.remove("w-96", "h-96");
         cd_wrapper.classList.add("w-56", "h-56");
         audio.play();
-        playBtn.textContent = "Pause";
+        playBtn.innerHTML = pauseIcon;
         panel_expander.classList.add("mt-12");
     } else {
         if(audio.paused) {
             audio.play();
-            playBtn.textContent = "Pause";
+            playBtn.innerHTML = pauseIcon;
         } else {
             audio.pause();
-            playBtn.textContent = "Play";
+            playBtn.innerHTML = playIcon;
         }
     }
 });
@@ -189,21 +191,21 @@ prevBtn.addEventListener("click", () => {
     currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
     loadTrack(currentTrackIndex);
     audio.play();
-    playBtn.textContent = "Pause";
+    playBtn.innerHTML = pauseIcon;
 });
 nextBtn.addEventListener("click", () => {
     currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
     loadTrack(currentTrackIndex);
     audio.play();
-    playBtn.textContent = "Pause";
+    playBtn.innerHTML = pauseIcon;
 }); 
 playBtn.addEventListener("click", () => {
     if(audio.paused) {
         audio.play();
-        playBtn.textContent = "Pause";
+        playBtn.innerHTML = pauseIcon;
     } else {
         audio.pause();
-        playBtn.textContent = "Play";
+        playBtn.innerHTML = playIcon;
     }
 });
 audio.addEventListener("timeupdate", () => {
