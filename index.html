@@ -31,11 +31,11 @@
 </script>
     </head>
     <body class="h-screen w-screen overflow-hidden bg-neutral-950 text-white relative select-none flex items-center justify-center">
-        <img class="absolute inset-0 w-full h-full object-cover scale-150 pointer-events-none transition-all duration-1000" id="bg" src="texture.gif">
+        <img class="fixed inset-0 w-full h-full object-cover scale-150 pointer-events-none transition-all duration-1000" id="bg" src="texture.gif">
         <header class="absolute top-8 left-1/2 -translate-x-1/2 z-20 text-center pointer-events-none">
             <h1 class="text-xl font-mono uppercase tracking-[0.35em] text-white/60 animate-glitch">Unrel34sed</h1>
         </header>
-        <main class="h-screen w-screen flex flex-col relative z-10 items-center justify-center px-6 overflow-hidden">       
+        <main class="relative h-screen w-screen flex flex-col relative z-10 items-center justify-center px-6 overflow-hidden">       
             <div id="cd_wrapper" class="w-96 h-96 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] cursor-pointer flex items-center justify-center">
                 <canvas id="cd-cover" class="w-full h-full"></canvas> 
             </div>
@@ -44,8 +44,8 @@
                         <div id="player-panel" class="w-full max-w-md flex flex-col gap-6  transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]">
                             <div>
                                 <div id="track-info" class="transition-all duration-200 ease-out">
-                                    <h1 id="title">titolo</h1>
-                                    <p id="artist">thasup</p>
+                                    <h1 id="title" class="font-mono animate-pulse">titolo</h1>
+                                    <p id="artist" class="font-mono">thasup</p>
                                 </div>
                                 <div id="progress-container" class="w-full h-1.5 bg-white/15 rounded-full transition-all duration-150 cursor-pointer">
                                     <div id="progress-bar" class="h-full w-0 bg-white rounded-full shadow-[0_0_12px_rgba(255,255,255,0.85), 0_0_25px_rgba(168,85,245,0.6)]"></div>

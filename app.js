@@ -153,6 +153,7 @@ function formatTime(sec) {
 function loadTrack(index) {
     const track = tracks[index];
     audio.src = track.src;
+    updateMediaSession(track);
     title.textContent = track.title;
     artist.textContent = track.artist;
     faceMaterial.map = new THREE.TextureLoader().load(track.cover);
@@ -222,3 +223,60 @@ progressContainer.addEventListener("click", (e) => {
     audio.currentTime = newTime;
 });
 loadTrack(currentTrackIndex);
+function updateMediaSession(track) {
+    if (!("mediaSession" in navigator)) return;
+
+    navigator.mediaSession.metadata = new MediaMetadata({
+        title: track.title,
+        artist: track.artist,
+        album: "23 6451",
+        artwork: [
+            {
+                src: new URL(track.cover, window.location.href).href,
+                sizes: "512x512",
+                type: "image/png"
+            }
+        ]
+    });
+
+
+    navigator.mediaSession.setActionHandler("play", () => {
+        audio.play();
+    });
+
+    navigator.mediaSession.setActionHandler("pause", () => {
+        audio.pause();
+        playBtn.innerHTML = playIcon;
+        navigator.mediaSession.playbackState = "paused";
+    });
+
+    navigator.mediaSession.setActionHandler("previoustrack", () => {
+        prevBtn.click();
+    });
+
+    navigator.mediaSession.setActionHandler("nexttrack", () => {
+        nextBtn.click();
+    });
+
+  
+    navigator.mediaSession.setActionHandler("seekto", (details) => {
+        if (details.fastSeek && "fastSeek" in audio) {
+            audio.fastSeek(details.seekTime);
+            return;
+        }
+        audio.currentTime = details.seekTime;
+    });
+}
+audio.addEventListener("play", () => {
+    playBtn.innerHTML = pauseIcon; 
+    if ("mediaSession" in navigator) {
+        navigator.mediaSession.playbackState = "playing";
+    }
+});
+
+audio.addEventListener("pause", () => {
+    playBtn.innerHTML = playIcon; 
+    if ("mediaSession" in navigator) {
+        navigator.mediaSession.playbackState = "paused";
+    }
+});
